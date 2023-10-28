@@ -2,9 +2,12 @@ package baseball;
 
 // import baseball.domain.Calculator;
 
+import static camp.nextstep.edu.missionutils.Console.readLine;
+
 import baseball.domain.Judgment;
 import baseball.domain.NumberGenerator;
 import baseball.domain.Referee;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,20 +19,28 @@ import java.util.List;
  */
 public class Application {
     public static void main(String[] args) {
-//        NumberGenerator generator = new NumberGenerator();
-//        List<Integer> numbers = generator.createRandomNumbers();
-//        System.out.println(numbers);
-
-//        Judgment judgment = new Judgment();
-//        int count = judgment.correctCount(Arrays.asList(1, 5, 3), Arrays.asList(1, 2, 3));
-//        System.out.println(count);
-//
-//        boolean place = judgment.hasPlace(Arrays.asList(7, 8, 9), 1, 8);
-//        System.out.println(place);
+        NumberGenerator generator = new NumberGenerator();
+        List<Integer> computer = generator.createRandomNumbers();
 
         Referee referee = new Referee();
-        String result = referee.compare(Arrays.asList(3, 8, 9), Arrays.asList(1, 2, 3));
-        System.out.println(result);
+        String result = "";
+        do {
+            result = referee.compare(computer, askNumbers());
+            System.out.println(result);
+        } while (!result.equals("0 볼 3 스트라이크"));
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+
+    }
+
+    public static List<Integer> askNumbers() {
+        System.out.print("숫자를 입력해주세요 : ");
+        String input = readLine();
+
+        List<Integer> numbers = new ArrayList<>();
+        for (String number : input.split("")) {
+            numbers.add(Integer.valueOf(number));
+        }
+        return numbers;
     }
 }
 
